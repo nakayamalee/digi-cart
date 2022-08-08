@@ -1,0 +1,20 @@
+main{
+    .conatiner-fulid{
+        .card{
+            .card-img{
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            .card-btn{
+                background-color: rgba(226, 22, 21, .85);
+            }
+        }
+    } 
+    .navigation{
+        .nav-active{
+            background-color: rgba(226, 22, 21, .85);
+            color: #FFF;
+        }
+    }
+}
