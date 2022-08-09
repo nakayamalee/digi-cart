@@ -27,7 +27,7 @@
                                 href="/">首頁</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white text-center" href="/product-index">商品列表</a>
+                            <a class="nav-link text-white text-center" href="/product-index/1">商品列表</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white text-center" href="/customer-center">會員中心</a>

@@ -14,21 +14,27 @@
             <div class="card mb-3 col-12">
                 <div class="row g-0 h-100">
                     <div class="col-md-4">
-                        <img src="./img/gorushi.jpg" class="card-img rounded-start" alt="...">
+                        <img src="{{$product->img_path}}" class="card-img rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body h-100 d-flex flex-column justify-content-evenly">
-                            <h5 class="card-title">品名 : GOLDEN SHIP</h5>
-                            <p class="card-text">單價 : 500元</p>
-                            <p class="card-text">庫存 : 500個</p>
-                            <p class="card-text">庫存 : 500件</p>
-                            <p class="card-text">
-                                數量 :<input type="number" min="1" value="1">
-                            </p>
-                            <div class="d-flex justify-content-center">
-                                <button type="button" class="btn card-btn text-white me-5">加入購物車</button>
-                                <button type="button" class="btn card-btn text-white">直接購買</button>
-                            </div>
+                            <h5 class="card-title">商品名稱 : {{$product->product_name}}</h5>
+                            <p class="card-text">單價 : {{$product->product_price}}元</p>
+                            <p class="card-text">庫存 : {{$product->product_qty}}件</p>
+                            @if ($product->product_qty == 0)
+                                <p class="card-text text-danger">已完售</p>
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn card-btn text-white me-5" onclick="history.back();">返回列表</button>
+                                </div>
+                            @else
+                                <p class="card-text">
+                                    數量 :<input type="number" min="1" max="{{$product->product_qty}}" value="1">
+                                </p>
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn card-btn text-white me-5">加入購物車</button>
+                                    <button type="button" class="btn card-btn text-white">直接購買</button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

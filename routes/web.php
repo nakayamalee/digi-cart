@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,11 +46,9 @@ Route::get('/customer-center', function () {
     return view('front.product_customer_center');
 });
 
-Route::get('/product-index',[Controller::class,'index']);
+Route::get('/product-index/{page}',[Controller::class,'product_index']);
 
-Route::get('/product-intro', function () {
-    return view('front.product_intro');
-});
+Route::get('/product-intro/{id}', [Controller::class,'product_intro']);
 
 Auth::routes();
 
