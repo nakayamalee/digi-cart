@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     @yield('css')
@@ -25,18 +24,18 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active text-white text-center" aria-current="page"
-                                href="/hompage.html">首頁</a>
+                                href="/">首頁</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white text-center" href="/product_index.html">商品列表</a>
+                            <a class="nav-link text-white text-center" href="/product-index">商品列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white text-center" href="/product_customer_center.html">會員中心</a>
+                            <a class="nav-link text-white text-center" href="/customer-center">會員中心</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-white text-center" href="/product_cart.html">
+                            <a class="nav-link text-white text-center" href="/cart-index">
                                 <i class="bi bi-cart4 position-relative">
                                     <div class="position-absolute border rounded-circle cart-product-count">0</div>
                                 </i>
@@ -50,9 +49,7 @@
     <main>
         @yield('main')
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous"></script>
+
         @yield('js')
 </body>
 
