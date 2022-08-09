@@ -14,55 +14,7 @@
             <div class="card mb-3 col-12 col-md-5">
                 <div class="row g-0 h-100">
                     <div class="col-md-4">
-                        <img src="./img/gorushi.jpg" class="card-img rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body h-100 d-flex flex-column justify-content-evenly">
-                            <h5 class="card-title">GOLDEN SHIP</h5>
-                            <p class="card-text">單價: 500元</p>
-                            <div class="d-flex justify-content-center">
-                                <button type="button" class="btn card-btn text-white">查看商品詳情</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 col-12 col-md-5">
-                <div class="row g-0 h-100">
-                    <div class="col-md-4">
-                        <img src="./img/gorushi.jpg" class="card-img rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body h-100 d-flex flex-column justify-content-evenly">
-                            <h5 class="card-title">GOLDEN SHIP</h5>
-                            <p class="card-text">單價: 500元</p>
-                            <div class="d-flex justify-content-center">
-                                <button type="button" class="btn card-btn text-white">查看商品詳情</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 col-12 col-md-5">
-                <div class="row g-0 h-100">
-                    <div class="col-md-4">
-                        <img src="./img/gorushi.jpg" class="card-img rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body h-100 d-flex flex-column justify-content-evenly">
-                            <h5 class="card-title">GOLDEN SHIP</h5>
-                            <p class="card-text">單價: 500元</p>
-                            <div class="d-flex justify-content-center">
-                                <button type="button" class="btn card-btn text-white">查看商品詳情</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 col-12 col-md-5">
-                <div class="row g-0 h-100">
-                    <div class="col-md-4">
-                        <img src="./img/gorushi.jpg" class="card-img rounded-start" alt="...">
+                        <img src="{{}}" class="card-img rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body h-100 d-flex flex-column justify-content-evenly">

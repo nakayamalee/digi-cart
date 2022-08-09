@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="text-end mb-3">
-                    <a class="btn btn-success" href="#">新增商品</a>
+                    <a class="btn btn-success" href="/backstage/product-create">新增商品</a>
                 </div>
                 <table id="myTable" class="display">
                     <thead>
@@ -23,22 +23,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>圖</td>
-                            <td>golden ship</td>
-                            <td>50</td>
-                            <td>1200</td>
-                            <td><button class="btn btn-danger">刪除</button></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>圖</td>
-                            <td>golden ship</td>
-                            <td>50</td>
-                            <td>1200</td>
-                            <td><button class="btn btn-danger">刪除</button></td>
-                        </tr>
+                        @foreach ($products as $index => $product)
+                            <tr>
+                                <td>{{ $index+1 }}</td>
+                                <td><img src="{{ $product->img_path }}" width="200" alt="{{ $product->product_name }}"></td>
+                                <td>{{ $product->product_name }}</td>
+                                <td>{{ $product->product_qty }}</td>
+                                <td>{{ $product->product_price }}</td>
+                                <td>
+                                    <button class="btn btn-success" onclick="location.href ='/backstage/product-edit/{{$product->id}}'">編輯</button>
+                                    <button class="btn btn-danger" type="button" onclick="document.querySelector('#delete_form{{$product->id}}').submit();">刪除</button>
+                                <form action="/backstage/product-delete/{{$product->id}}" method="POST" class="d-none" id="delete_form{{$product->id}}">
+                                    @csrf
+                                </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

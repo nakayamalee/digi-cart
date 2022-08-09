@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +18,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-Route::get('/backstage/product-index', function () {
-    return view('backstage.product-index');
-});
+
 
 Route::get('/', function () {
     return view('front.hompage');
@@ -43,13 +44,22 @@ Route::get('/cart-index', function () {
 Route::get('/customer-center', function () {
     return view('front.product_customer_center');
 });
-Route::get('/product-index', function () {
-    return view('front.product_index');
-});
+
+Route::get('/product-index',[Controller::class,'index']);
+
 Route::get('/product-intro', function () {
     return view('front.product_intro');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::prefix('/backstage')->group(function () {
+    Route::get('/product-index',[ProductController::class,'index']);    //列表頁
+    Route::get('/product-create',[ProductController::class,'create']);    //新增頁
+    Route::post('/product-store',[ProductController::class,'store']);    //儲存
+    Route::get('/product-edit/{id}',[ProductController::class,'edit']);    //編輯
+    Route::post('/product-update/{id}',[ProductController::class,'update']);    //更新
+    Route::post('/product-delete/{id}',[ProductController::class,'destroy']);    //刪除
+});
