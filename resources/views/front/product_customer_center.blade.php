@@ -15,10 +15,11 @@
             <div class="card mb-3 col-12 p-5">
                 <div class="text-center d-flex justify-content-center align-items-center mb-3">
                     <label for="nickName" class="fs-1 me-3">暱稱:</label>
-                    <input type="text" name="nickName" id="nickName">
+                    <input type="text" value="{{Auth::user()->name}}" id="nickName">
+                    <input type="hidden" value="{{Auth::user()->id}}" id="user_id">
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn card-btn fs-3 px-3 py-1 text-white me-5">修改</button>
+                    <button type="button" class="btn card-btn fs-3 px-3 py-1 text-white me-5" onclick="changeName()">修改</button>
                     <button type="button" class="btn card-btn fs-3 px-3 py-1 text-white bg-secondary">登出</button>
                 </div>
             </div>
@@ -70,4 +71,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        function changeName(){
+            const name = document.querySelector('#nickName').value;
+            const user_id = document.querySelector('#user_id').value;
+            const nameData = new FormData();
+            nameData.append('_token', '{{ csrf_token() }}');//TOKEN
+            nameData.append('user_id', user_id);
+            nameData.append('newName', name);
+            fetch('/customer-center/change-name', {
+                method: 'POST',
+                body: nameData,
+            }).then(function(response) {
+                return response.text(); //接收資料
+            })
+            .then(function(datas){
+                alert('修改成功');
+            })
+        }
+    </script>
 @endsection

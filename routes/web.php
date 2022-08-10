@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Controller;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +50,8 @@ Route::get('/customer-center', function () {
 });
 
 Route::get('/product-index/{page}',[Controller::class,'product_index']);
+
+Route::post('/customer-center/change-name',[AccountController::class,'change_name']);
 
 Route::get('/product-intro/{id}', [Controller::class,'product_intro']);
 
