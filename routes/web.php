@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Middleware\Authenticate;
 
 
 
@@ -33,7 +34,7 @@ Route::get('/addAcount', function () {
 Route::get('/forget', function () {
     return view('front.forgetPassword');
 });
-Route::get('/logtest', function () {
+Route::get('/login_test', function () {
     return view('front.login');
 });
 Route::get('/paydone', function () {
@@ -45,7 +46,7 @@ Route::get('/pay', function () {
 Route::get('/cart-index', function () {
     return view('front.product_cart');
 });
-Route::get('/customer-center', function () {
+Route::middleware([Authenticate::class])->get('/customer-center', function () {
     return view('front.product_customer_center');
 });
 
