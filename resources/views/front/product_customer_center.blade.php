@@ -16,7 +16,6 @@
                 <div class="text-center d-flex justify-content-center align-items-center mb-3">
                     <label for="nickName" class="fs-1 me-3">暱稱:</label>
                     <input type="text" value="{{ Auth::user()->name }}" id="nickName">
-                    <input type="hidden" value="{{ Auth::user()->id }}" id="user_id">
                 </div>
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn card-btn fs-3 px-3 py-1 text-white me-5"
@@ -85,10 +84,8 @@
     <script>
         function changeName() {
             const name = document.querySelector('#nickName').value;
-            const user_id = document.querySelector('#user_id').value;
             const nameData = new FormData();
             nameData.append('_token', '{{ csrf_token() }}'); //TOKEN
-            nameData.append('user_id', user_id);
             nameData.append('newName', name);
             fetch('/customer-center/change-name', {
                     method: 'POST',
@@ -97,7 +94,20 @@
                     return response.text(); //接收資料
                 })
                 .then(function(datas) {
-                    alert('修改成功');
+                    if (datas === 'true') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '修改成功!',
+                            confirmButtonText: '繼續'
+                        })
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: '修改失敗!',
+                            confirmButtonText: '繼續'
+                        })
+
+                    }
                 })
         }
     </script>
