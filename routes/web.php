@@ -34,9 +34,11 @@ Route::get('/addAcount', function () {
 Route::get('/forget', function () {
     return view('front.forgetPassword');
 });
+
 Route::get('/signin', function () {
     return view('front.login');
 })->name('signin');
+
 Route::get('/paydone', function () {
     return view('front.pay-done');
 });
