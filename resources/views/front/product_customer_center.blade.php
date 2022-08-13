@@ -94,10 +94,17 @@
                     return response.text(); //接收資料
                 })
                 .then(function(datas) {
-                    if (datas === 'true') {
+                    console.log(datas);
+                    if (datas === 'save') {
                         Swal.fire({
                             icon: 'success',
                             title: '修改成功!',
+                            confirmButtonText: '繼續'
+                        })
+                    }else if(datas === 'same'){
+                        Swal.fire({
+                            icon: 'question',
+                            title: '暱稱無更動，請再次確認',
                             confirmButtonText: '繼續'
                         })
                     }else{
@@ -106,7 +113,6 @@
                             title: '修改失敗!',
                             confirmButtonText: '繼續'
                         })
-
                     }
                 })
         }

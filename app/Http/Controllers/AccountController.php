@@ -10,9 +10,13 @@ class AccountController extends Controller
 {
     public function change_name(Request $request)
     {
-        $account = User::find(Auth::user()->id);
-        $account->name = $request->newName;
-        $account->save();
-        return 'true';
+        if(Auth::user()->name == $request->newName){
+            return 'same';
+        }else{
+            $account = User::find(Auth::user()->id);
+            $account->name = $request->newName;
+            $account->save();
+            return 'save';
+        }
     }
 }
