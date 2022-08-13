@@ -9,6 +9,9 @@ main .conatiner-fulid .card .card-img {
 main .conatiner-fulid .card .card-btn {
   background-color: rgba(226, 22, 21, 0.85);
 }
+main .conatiner-fulid .card #pluse, main .conatiner-fulid .card #minus {
+  cursor: pointer;
+}
 main .navigation .nav-active {
   background-color: rgba(226, 22, 21, 0.85);
   color: #FFF;

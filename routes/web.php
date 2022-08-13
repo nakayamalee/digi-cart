@@ -27,7 +27,7 @@ use Illuminate\Auth\Middleware\Authenticate;
 
 Route::get('/', function () {
     return view('front.hompage');
-});
+})->name('homepage');
 Route::get('/addAcount', function () {
     return view('front.addAccount');
 });
@@ -62,7 +62,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('/backstage')->group(function () {
+Route::middleware([Authenticate::class])->prefix('/backstage')->group(function () {
     Route::get('/product-index',[ProductController::class,'index']);    //列表頁
     Route::get('/product-create',[ProductController::class,'create']);    //新增頁
     Route::post('/product-store',[ProductController::class,'store']);    //儲存

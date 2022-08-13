@@ -28,7 +28,11 @@
                                 </div>
                             @else
                                 <p class="card-text">
-                                    數量 :<input type="number" min="1" max="{{$product->product_qty}}" value="1">
+                                    數量 :
+                                    <span id="minus" class="fs-4 border px-3 py-1">-</span>
+                                    {{-- <span id="qty">1</span> --}}
+                                    <input id="prouduct_qty" class="fs-4 text-center" type="text" min="1" max="{{$product->product_qty}}" value="1" readonly>
+                                    <span id="pluse" class="fs-4 border px-3 py-1">+</span>
                                 </p>
                                 <div class="d-flex justify-content-center">
                                     <button type="button" class="btn card-btn text-white me-5">加入購物車</button>
@@ -41,4 +45,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        const pluse_btn = document.querySelector('#pluse');
+        const minus_btn = document.querySelector('#minus');
+        const prouduct_qty = document.querySelector('#prouduct_qty');
+
+        pluse_btn.addEventListener('click',()=>{
+            prouduct_qty.value++;
+        });
+    </script>
 @endsection

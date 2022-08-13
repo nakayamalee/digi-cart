@@ -16,7 +16,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col"><input type="checkbox"></th>
+                            <th scope="col"><input type="checkbox" id="top_select_all"></th>
                             <th scope="col">#</th>
                             <th scope="col">商品</th>
                             <th scope="col">單價</th>
@@ -40,7 +40,7 @@
             </div>
             <div class="p-3 px-sm-5 pb-sm-3 d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-center mb-3">
-                    <input type="checkbox" id="select-all">
+                    <input type="checkbox" id="bot_select_all">
                     <label for="select-all" class="ms-3 fs-3">全選(0)</label>
                 </div>
                 <div class="d-flex align-items-center mb-3">
@@ -51,4 +51,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        const select_all_inputs = document.querySelectorAll('input[id*="select_all"]');
+
+        select_all_inputs.forEach(select_all_input => {
+            select_all_input.addEventListener('click',()=>{
+                if(select_all_input.checked === false){
+                    const all_check_inputs = document.querySelectorAll('input[type="checkbox"]');
+                    all_check_inputs.forEach((check_input)=>{
+                        check_input.checked = false;
+                    });
+                }else{
+                    const all_check_inputs = document.querySelectorAll('input[type="checkbox"]');
+                    all_check_inputs.forEach((check_input)=>{
+                        check_input.checked = true;
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

@@ -29,7 +29,7 @@
                     <input type="password" class="@error('password') is-invalid @enderror" name="password" id="password" required autocomplete="current-password">
                 </div>
                 <div class="d-flex flex-wrap justify-content-between">
-                    <button type="button" onclick="location.href='{{ route('register') }}';" class="btn btn-danger col-5 mb-3">加入會員</button>
+                    <button type="button" onclick="location.href='/addAcount';" class="btn btn-danger col-5 mb-3">加入會員</button>
                     <div class="col-2 mb-3"></div>
                     <button type="submit" class="btn btn-danger col-5 mb-3">登入</button>
                     <a href="{{ route('password.request') }}" class="text-dark col-12 text-end">忘記密碼?</a>
