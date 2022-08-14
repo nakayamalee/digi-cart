@@ -7,6 +7,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Product;
+use App\Models\User_info;
+use App\Models\User_order;
 use Illuminate\Http\Request;
 
 
@@ -52,7 +54,14 @@ class Controller extends BaseController
     }
     public function paydone(Request $request){
         $products = Product::find($request->id);
+        dd($request);
+        User_info::create([
+            'user_address' => $request->postal_code + $request->city + $request->address,
+            'order_id' => HE
+        ]);
+        User_order::create([
 
+        ]);
         return view('front.pay-done',compact('products','request'));
     }
 }

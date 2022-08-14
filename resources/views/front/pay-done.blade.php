@@ -46,7 +46,7 @@
                     訂單編號
                 </div>
                 <div>
-                    HE123456789
+                    HE123456789訂單提供
                 </div>
             </div>
             <div class="d-flex justify-content-between info mb-3">
