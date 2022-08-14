@@ -39,12 +39,8 @@ Route::get('/signin', function () {
     return view('front.login');
 })->name('signin');
 
-Route::get('/paydone', function () {
-    return view('front.pay-done');
-});
-// Route::get('/pay', function () {
-//     return view('front.pay');
-// });
+Route::post('/paydone',[Controller::class,'paydone']);
+
 Route::get('/pay', [Controller::class,'pay']);
 
 Route::get('/cart-index', function () {

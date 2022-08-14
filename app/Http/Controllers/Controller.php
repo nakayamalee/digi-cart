@@ -50,4 +50,9 @@ class Controller extends BaseController
         $qty = $request->prouduct_qty;
         return view('front.pay',compact('product','qty'));
     }
+    public function paydone(Request $request){
+        $products = Product::find($request->id);
+
+        return view('front.pay-done',compact('products','request'));
+    }
 }
