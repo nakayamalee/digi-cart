@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('user_infos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('user_phone')->nullable()->comment('客戶電話');
             $table->string('user_address')->nullable()->comment('寄送地址');
             $table->integer('delivery_type')->nullable()->comment('運送方式');
             $table->integer('pay_type')->nullable()->comment('寄送地址');

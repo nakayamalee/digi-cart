@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 
 class Controller extends BaseController
@@ -42,5 +43,11 @@ class Controller extends BaseController
     {
         $product = Product::find($id);
         return view('front.product_intro',compact('product'));
+    }
+    public function pay(Request $request)
+    {
+        $product = Product::find($request->product_id);
+        $qty = $request->prouduct_qty;
+        return view('front.pay',compact('product','qty'));
     }
 }

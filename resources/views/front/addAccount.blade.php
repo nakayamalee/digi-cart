@@ -28,6 +28,11 @@
                     @enderror
 
                 </div>
+                <div class="mb-5 d-flex flex-wrap justify-content-between">
+                    <label for="phone" class="col-3 col-form-label text-start">電話:</label>
+                    <input id="phone" type="tel" class="col-9"
+                        name="phone" value="{{ old('phone') }}" required autocomplete="phone">
+                </div>
 
                 <div class="mb-5 d-flex flex-wrap justify-content-between">
                     <label for="email" class="col-3 col-form-label text-start">帳號:</label>
@@ -41,6 +46,7 @@
                     @enderror
 
                 </div>
+
 
                 <div class="mb-5 d-flex flex-wrap justify-content-between">
                     <label for="password" class="col-3 col-form-label text-start">密碼:</label>

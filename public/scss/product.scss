@@ -13,6 +13,9 @@ main{
             #pluse,#minus{
                 cursor: pointer;
             }
+            #qty{
+                user-select: none;
+            }
         }
     }
     .navigation{

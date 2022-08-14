@@ -12,6 +12,12 @@ main .conatiner-fulid .card .card-btn {
 main .conatiner-fulid .card #pluse, main .conatiner-fulid .card #minus {
   cursor: pointer;
 }
+main .conatiner-fulid .card #qty {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
 main .navigation .nav-active {
   background-color: rgba(226, 22, 21, 0.85);
   color: #FFF;

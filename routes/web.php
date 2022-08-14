@@ -42,12 +42,16 @@ Route::get('/signin', function () {
 Route::get('/paydone', function () {
     return view('front.pay-done');
 });
-Route::get('/pay', function () {
-    return view('front.pay');
-});
+// Route::get('/pay', function () {
+//     return view('front.pay');
+// });
+Route::get('/pay', [Controller::class,'pay']);
+
 Route::get('/cart-index', function () {
     return view('front.product_cart');
 });
+
+
 Route::middleware([Authenticate::class])->get('/customer-center', function () {
     return view('front.product_customer_center');
 });
