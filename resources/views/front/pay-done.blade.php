@@ -92,7 +92,17 @@
                     商品總金額
                 </div>
                 <div>
-                    $1000訂單提供
+                    @if ($request->delivery == 1)
+                    ${{$user_info->order_subtotal-60}}
+                    @elseif ($request->delivery == 2)
+                    ${{$user_info->order_subtotal-50}}
+                    @elseif ($request->delivery == 3)
+                    ${{$user_info->order_subtotal-60}}
+                    @elseif ($request->delivery == 4)
+                    ${{$user_info->order_subtotal-45}}
+                    @elseif ($request->delivery == 5)
+                    ${{$user_info->order_subtotal-90}}
+                    @endif
                 </div>
             </div>
             <div class="d-flex justify-content-between info mb-3">
@@ -118,7 +128,7 @@
                     訂單總計
                 </div>
                 <div class="text-danger fs-1 fw-bolder">
-                    $1,060訂單提供
+                    ${{$user_info->order_subtotal}}
                 </div>
             </div>
             <div class="text-end">

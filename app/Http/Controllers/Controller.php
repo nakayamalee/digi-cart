@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\User_info;
 use App\Models\User_order;
 use Illuminate\Http\Request;
+use Auth;
 
 
 class Controller extends BaseController
@@ -48,20 +49,64 @@ class Controller extends BaseController
     }
     public function pay(Request $request)
     {
+        $token = rand(10000, 99999);
+        session(['form_token'=> $token]);
+
         $product = Product::find($request->product_id);
-        $qty = $request->prouduct_qty;
-        return view('front.pay',compact('product','qty'));
+        if($request->prouduct_qty <=0 || $request->prouduct_qty > $product->product_qty){
+            return 'error,please check again';
+        }else{
+            $qty = $request->prouduct_qty;
+            return view('front.pay',compact('product','qty','token'));
+        }
     }
     public function paydone(Request $request){
-        $products = Product::find($request->id);
-        dd($request);
-        User_info::create([
-            'user_address' => $request->postal_code + $request->city + $request->address,
-            'order_id' => HE
+        $input_token = $request->token;
+        $token = session('form_token');
+        if($input_token == $token) {
+            session(['form_token'=> null]);
+        } else {
+            return '請勿重複提交!! <a href="/">回到首頁</a>';
+        }
+        $subtotal = 0;
+        $product_arr = $request->id;
+        $products = Product::find($product_arr);
+        $user_info = User_info::create([
+            'user_id'=>Auth::user()->id,
+            'user_address' => $request->postal_code.$request->city.$request->address,
+            'pay_type' => $request->pay_way,
+            'delivery_type' => $request->delivery,
         ]);
-        User_order::create([
 
-        ]);
-        return view('front.pay-done',compact('products','request'));
+        foreach ($product_arr as $key => $value) {
+            $product = Product::find($value);
+            User_order::create([
+                'product_id'=>$value,
+                'product_price'=>$product->product_price,
+                'product_qty'=>$request->qty[$key],
+                'product_id'=>$value,
+                'user_info_id'=> $user_info->id,
+                'status'=>1,
+            ]);
+
+            $product->product_qty=$product->product_qty-$request->qty[$key];
+            $product->save();
+            $subtotal+=$product->product_price*$request->qty[$key];
+        }
+        if($request->delivery==1 || $request->delivery==3){
+            $subtotal = $subtotal + 60;
+        }else if($request->delivery==2){
+            $subtotal = $subtotal + 50;
+        }else if($request->delivery==4){
+            $subtotal = $subtotal + 45;
+        }else if($request->delivery==5){
+            $subtotal = $subtotal + 90;
+        }
+
+        $user_info->order_subtotal = $subtotal;
+        $user_info->save();
+
+
+        return view('front.pay-done',compact('products','request','user_info'));
     }
 }

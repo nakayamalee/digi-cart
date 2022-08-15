@@ -70,7 +70,5 @@
                 prouduct_qty.value--;
             }
         });
-
-        // fetch
     </script>
 @endsection

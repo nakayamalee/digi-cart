@@ -16,11 +16,10 @@ return new class extends Migration
         Schema::create('user_orders', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('product_id')->nullable()->comment('商品ID');
-            $table->integer('product_price')->nullable()->comment('商品價格');
-            $table->integer('product_qty')->nullable()->comment('商品數量');
-            $table->integer('user_id')->nullable()->commet('訂單擁有者');
-            $table->integer('user_info_id')->nullable()->commet('訂單人資訊');
+            $table->string('product_id')->nullable()->comment('商品ID');
+            $table->string('product_price')->nullable()->comment('商品價格');
+            $table->string('product_qty')->nullable()->comment('商品數量');
+            $table->bigInteger('user_info_id')->nullable()->commet('訂單人資訊');
             $table->integer('status')->nullable()->comment('訂單狀態');
         });
     }
