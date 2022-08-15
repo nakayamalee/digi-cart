@@ -10,5 +10,10 @@ class User_info extends Model
     use HasFactory;
     protected $table = 'user_infos';
     protected $primaryKey = 'id';
-    protected $fillable = ['created_at', 'updated_at','user_id','user_address','delivery_type','pay_type','order_subtotal','order_id'];
+    protected $fillable = ['created_at', 'updated_at','user_id','user_address','delivery_type','pay_type','order_subtotal','order_id','isCart'];
+
+    public function user_order()
+    {
+        return $this->hasMany(User_order::class,'user_info_id','id');
+    }
 }

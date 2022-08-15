@@ -40,7 +40,9 @@
                                         <span id="pluse" class="fs-4 border px-3 py-1">+</span>
                                     </p>
                                     <div class="d-flex justify-content-center">
-                                        <button type="button" class="btn card-btn text-white me-5">加入購物車</button>
+                                        <button type="button" id="add_to_cart" onclick="cart()"
+                                            data-id="{{ $product->id }}"
+                                            class="btn card-btn text-white me-5">加入購物車</button>
                                         <button type="submit" class="btn card-btn text-white">直接購買</button>
                                     </div>
                                 @endif
@@ -70,5 +72,35 @@
                 prouduct_qty.value--;
             }
         });
+
+        function cart() {
+            const cartData = new FormData();
+            const qty = prouduct_qty.value;
+            cartData.append('_token', '{{ csrf_token() }}'); //TOKEN
+            cartData.append('product_id', add_to_cart.dataset.id);
+            cartData.append('product_qty', qty);
+            fetch('/add_cart', {
+                method: 'POST',
+                body: cartData,
+            }).then(function(response) {
+                return response.text(); //接收資料
+            }).then(function(data) {
+                console.log(data);
+                if (data === 'number error') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '加入失敗!!',
+                        text: '請確認數量',
+                    })
+                }
+                if (data === 'already in cart') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '加入失敗!!',
+                        text: '此商品已加入購物車',
+                    })
+                }
+            })
+        }
     </script>
 @endsection

@@ -26,15 +26,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row"><input type="checkbox"></td>
-                            <td>1</td>
-                            <td><a href="/product_intro.html"><img src="./img/gorushi.jpg" alt=""></a></td>
-                            <td>$500</td>
-                            <td><input type="number" value="1" min="0"></td>
-                            <td class="text-primary">$500</td>
-                            <td><button class="btn btn-danger">刪除</button></td>
-                        </tr>
+                        @foreach ($cart->user_order as $key => $item)
+                            <tr>
+                                <td scope="row"><input type="checkbox"></td>
+                                <td>{{$key+1}}</td>
+                                <td><a href="/product-intro/{{$item->product_id}}"><img src="{{$item->product->img_path}}" title="{{$item->product->product_name}}" alt="{{$item->product->product_name}}"></a></td>
+                                <td>{{$item->product_price}}</td>
+                                <td><span id="minus{{$item->product_id}}" class="fs-4 border px-3 py-1">-</span>
+                                    <input id="prouduct_qty" class="fs-4 text-center" type="text" value="{{$item->product_qty}}" name="prouduct_qty" readonly>
+                                    <span id="pluse{{$item->product_id}}" class="fs-4 border px-3 py-1">+</span></td>
+                                <td class="text-primary">{{ $item->product_price*$item->product_qty }}</td>
+                                <td><button class="btn btn-danger">刪除</button></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -58,15 +62,15 @@
         const select_all_inputs = document.querySelectorAll('input[id*="select_all"]');
 
         select_all_inputs.forEach(select_all_input => {
-            select_all_input.addEventListener('click',()=>{
-                if(select_all_input.checked === false){
+            select_all_input.addEventListener('click', () => {
+                if (select_all_input.checked === false) {
                     const all_check_inputs = document.querySelectorAll('input[type="checkbox"]');
-                    all_check_inputs.forEach((check_input)=>{
+                    all_check_inputs.forEach((check_input) => {
                         check_input.checked = false;
                     });
-                }else{
+                } else {
                     const all_check_inputs = document.querySelectorAll('input[type="checkbox"]');
-                    all_check_inputs.forEach((check_input)=>{
+                    all_check_inputs.forEach((check_input) => {
                         check_input.checked = true;
                     });
                 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('product_qty')->nullable()->comment('商品數量');
             $table->bigInteger('user_info_id')->nullable()->commet('訂單人資訊');
             $table->integer('status')->nullable()->comment('訂單狀態');
+            $table->integer('isCart')->nullable()->comment('屬於購物車');
         });
     }
 

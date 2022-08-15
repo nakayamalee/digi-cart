@@ -41,11 +41,11 @@ Route::get('/signin', function () {
 
 Route::post('/paydone',[Controller::class,'paydone']);
 
+Route::post('/add_cart',[Controller::class,'add_cart']);
+
 Route::get('/pay', [Controller::class,'pay']);
 
-Route::get('/cart-index', function () {
-    return view('front.product_cart');
-});
+Route::get('/cart-index', [Controller::class,'cart_index']);
 
 
 Route::middleware([Authenticate::class])->get('/customer-center', function () {

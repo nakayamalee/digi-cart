@@ -76,6 +76,7 @@ class Controller extends BaseController
             'user_address' => $request->postal_code.$request->city.$request->address,
             'pay_type' => $request->pay_way,
             'delivery_type' => $request->delivery,
+            'isCart'=>0,
         ]);
 
         foreach ($product_arr as $key => $value) {
@@ -87,6 +88,7 @@ class Controller extends BaseController
                 'product_id'=>$value,
                 'user_info_id'=> $user_info->id,
                 'status'=>1,
+                'isCart'=>0,
             ]);
 
             $product->product_qty=$product->product_qty-$request->qty[$key];
@@ -108,5 +110,42 @@ class Controller extends BaseController
 
 
         return view('front.pay-done',compact('products','request','user_info'));
+    }
+    public function add_cart(Request $request)
+    {
+        $cart = User_info::where('user_id',Auth::user()->id)->where('isCart',1)->first();
+        // $user_order = User_order::where('user_id',Auth::user()->id)->where('isCart',1)->first();
+        if(!isset($cart)){
+            $product_id = $request->product_id;
+            $product_qty = $request->product_qty;
+            $product = Product::find($product_id);
+
+            if($product->product_qty <=0 || $product_qty > $product->product_qty){
+                return 'number error';
+            }else{
+                $user_info = User_info::create([
+                    'user_id'=>Auth::user()->id,
+                    'isCart'=>1,
+                ]);
+                User_order::create([
+                    'product_id'=>$product_id,
+                    'product_price'=>$product->product_price,
+                    'product_qty'=>$product_qty,
+                    'user_info_id'=> $user_info->id,
+                    'status'=>0,
+                    'isCart'=>1,
+                ]);
+            }
+        // }else if(isset($cart) && ){
+        //     return 'already in cart';
+        }else{
+            return 'already in cart';
+        }
+    }
+    public function cart_index()
+    {
+        $cart = User_info::where('user_id',Auth::user()->id)->where('isCart',1)->with('user_order','user_order.product')->first();
+
+        return view('front.product_cart',compact('cart'));
     }
 }
