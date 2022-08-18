@@ -60,9 +60,9 @@ Route::get('/product-intro/{id}', [Controller::class,'product_intro']);
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::middleware([Authenticate::class])->middleware([AccountTypeIsValid::class])->get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::middleware([Authenticate::class])->prefix('/backstage')->group(function () {
+Route::prefix('/backstage')->middleware([Authenticate::class])->middleware([AccountTypeIsValid::class])->group(function () {
     Route::get('/product-index',[ProductController::class,'index']);    //列表頁
     Route::get('/product-create',[ProductController::class,'create']);    //新增頁
     Route::post('/product-store',[ProductController::class,'store']);    //儲存
