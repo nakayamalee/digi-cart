@@ -47,9 +47,10 @@ Route::get('/pay', [Controller::class,'pay']);
 
 Route::middleware(['auth'])->get('/cart-index', [Controller::class,'cart_index']);
 
-Route::middleware(['auth'])->get('/customer-center', function () {
-    return view('front.product_customer_center');
-});
+// Route::middleware(['auth'])->get('/customer-center', function () {
+//     return view('front.product_customer_center');
+// });
+Route::middleware(['auth'])->get('/customer-center', [Controller::class,'customer_center']);
 
 Route::get('/product-index/{page}',[Controller::class,'product_index']);
 

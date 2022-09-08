@@ -45,34 +45,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>2022/07/19</td>
-                            <td>HES123456789</td>
-                            <td>NT$600</td>
-                            <td class="text-primary">配送中</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>2022/07/19</td>
-                            <td>HES123456789</td>
-                            <td>NT$600</td>
-                            <td class="fw-bolder text-secondary">未付款</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>2022/07/19</td>
-                            <td>HES123456789</td>
-                            <td>NT$600</td>
-                            <td class="fw-bolder text-danger">已取消</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>2022/07/19</td>
-                            <td>HES123456789</td>
-                            <td>NT$600</td>
-                            <td class="text-success">已送達</td>
-                        </tr>
+                        @if ($orders)
+                            @foreach ($orders as $key=>$item)
+                                <tr>
+                                    <th scope="row">{{ $key+1 }}</th>
+                                    <td>{{ $item->created_at->toDateString() }}</td>
+                                    <td>HES123456789</td>
+                                    <td>NT$600</td>
+                                    <td class="text-primary">配送中</td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

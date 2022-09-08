@@ -115,7 +115,7 @@ class Controller extends BaseController
     {
         // $cart = Cart::where('uid',Auth:id())->get();
 
-        
+
         // $cart = User_info::where('user_id',Auth::id())->where('isCart',1)->first();
 
         // if(!isset($cart)){
@@ -145,8 +145,14 @@ class Controller extends BaseController
     }
     public function cart_index()
     {
-        $cart = User_info::where('user_id',Auth::user()->id)->where('isCart',1)->with('user_order','user_order.product')->first();
+        // $cart = User_info::where('user_id',Auth::user()->id)->where('isCart',1)->with('user_order','user_order.product')->first();
 
-        return view('front.product_cart',compact('cart'));
+        return view('front.product_cart');
+    }
+    public function customer_center()
+    {
+        // $cart = User_info::where('user_id',Auth::user()->id)->where('isCart',1)->with('user_order','user_order.product')->first();
+        $orders = User_info::where('user_id',Auth::id())->get();
+        return view('front.product_customer_center',compact('orders'));
     }
 }
