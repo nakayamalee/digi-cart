@@ -1,11 +1,23 @@
 @extends('templates.template')
 
 @section('title')
-    會員中心
+    商品詳細
 @endsection
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/product.css') }}">
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
+    </style>
 @endsection
 
 @section('main')
@@ -35,8 +47,8 @@
                                         數量 :
                                         <span id="minus" class="fs-4 border px-3 py-1">-</span>
                                         {{-- <span id="qty">1</span> --}}
-                                        <input id="prouduct_qty" class="fs-4 text-center" type="text" min="1"
-                                            max="{{ $product->product_qty }}" value="1" name="prouduct_qty" readonly>
+                                        <input id="prouduct_qty" class="fs-4 text-center" type="number" min="1"
+                                            max="{{ $product->product_qty }}" value="1" name="prouduct_qty" onblur="checkQty()">
                                         <span id="pluse" class="fs-4 border px-3 py-1">+</span>
                                     </p>
                                     <div class="d-flex justify-content-center">
@@ -73,6 +85,14 @@
             }
         });
 
+        function checkQty(){
+            if(parseInt(prouduct_qty.value) > parseInt(prouduct_qty.max)){
+                prouduct_qty.value = parseInt(prouduct_qty.max);
+            }else if(parseInt(prouduct_qty.value) <= 0){
+                prouduct_qty.value = 1;
+            }
+        }
+
         function cart() {
             const cartData = new FormData();
             const qty = prouduct_qty.value;
@@ -85,7 +105,6 @@
             }).then(function(response) {
                 return response.text(); //接收資料
             }).then(function(data) {
-                console.log(data);
                 if (data === 'number error') {
                     Swal.fire({
                         icon: 'error',

@@ -12,7 +12,9 @@
     <div class="conatiner-fulid px-0 pt-5 px-sm-5">
         <div class="row g-3 m-0 justify-content-evenly">
             <div class="card mb-3 col-12 p-0 p-sm-5">
-                <!-- <div class="text-center fs-1 fw-bolder text-danger">購物車無商品,請先至商品頁選購喔!</div> -->
+                @if(!$cart)
+                    <div class="text-center fs-1 fw-bolder text-danger">購物車無商品,請先至商品頁選購喔!</div>
+                @endif
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -26,19 +28,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($cart->user_order as $key => $item)
-                            <tr>
-                                <td scope="row"><input type="checkbox"></td>
-                                <td>{{$key+1}}</td>
-                                <td><a href="/product-intro/{{$item->product_id}}"><img src="{{$item->product->img_path}}" title="{{$item->product->product_name}}" alt="{{$item->product->product_name}}"></a></td>
-                                <td>{{$item->product_price}}</td>
-                                <td><span id="minus{{$item->product_id}}" class="fs-4 border px-3 py-1">-</span>
-                                    <input id="prouduct_qty" class="fs-4 text-center" type="text" value="{{$item->product_qty}}" name="prouduct_qty" readonly>
-                                    <span id="pluse{{$item->product_id}}" class="fs-4 border px-3 py-1">+</span></td>
-                                <td class="text-primary">{{ $item->product_price*$item->product_qty }}</td>
-                                <td><button class="btn btn-danger">刪除</button></td>
-                            </tr>
-                        @endforeach
+                        @if($cart)
+                            @foreach ($cart->user_order as $key => $item)
+                                <tr>
+                                    <td scope="row"><input type="checkbox"></td>
+                                    <td>{{$key+1}}</td>
+                                    <td><a href="/product-intro/{{$item->product_id}}"><img src="{{$item->product->img_path}}" title="{{$item->product->product_name}}" alt="{{$item->product->product_name}}"></a></td>
+                                    <td>{{$item->product_price}}</td>
+                                    <td><span id="minus{{$item->product_id}}" class="fs-4 border px-3 py-1">-</span>
+                                        <input id="prouduct_qty" class="fs-4 text-center" type="text" value="{{$item->product_qty}}" name="prouduct_qty" readonly>
+                                        <span id="pluse{{$item->product_id}}" class="fs-4 border px-3 py-1">+</span></td>
+                                    <td class="text-primary">{{ $item->product_price*$item->product_qty }}</td>
+                                    <td><button class="btn btn-danger">刪除</button></td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
