@@ -32,7 +32,7 @@
                     <button type="button" onclick="location.href='/addAcount';" class="btn btn-danger col-5 mb-3">加入會員</button>
                     <div class="col-2 mb-3"></div>
                     <button type="submit" class="btn btn-danger col-5 mb-3">登入</button>
-                    <a href="{{ route('password.request') }}" class="text-dark col-12 text-end">忘記密碼?</a>
+                    <a href="/forget" class="text-dark col-12 text-end">忘記密碼?</a>
                 </div>
             </form>
         </div>

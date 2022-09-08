@@ -17,9 +17,9 @@
                 <input type="text" name="account" id="account">
             </div>
             <div class="d-flex flex-wrap justify-content-between">
-                <button class="btn btn-danger col-5 mb-3">重設密碼</button>
+                <button type="submit" class="btn btn-danger col-5 mb-3">重設密碼</button>
                 <div class="col-2 mb-3"></div>
-                <button class="btn btn-secondary col-5 mb-3">取消</button>
+                <button type="button" onclick="location.href='/signin'" class="btn btn-secondary col-5 mb-3">取消</button>
             </div>
         </div>
     </div>

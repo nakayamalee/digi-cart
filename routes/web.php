@@ -47,22 +47,22 @@ Route::get('/pay', [Controller::class,'pay']);
 
 Route::get('/cart-index', [Controller::class,'cart_index']);
 
-
-Route::middleware([Authenticate::class])->get('/customer-center', function () {
+Route::middleware(['auth'])->get('/customer-center', function () {
     return view('front.product_customer_center');
 });
 
 Route::get('/product-index/{page}',[Controller::class,'product_index']);
 
-Route::post('/customer-center/change-name',[AccountController::class,'change_name']);
-
 Route::get('/product-intro/{id}', [Controller::class,'product_intro']);
+
+Route::post('/customer-center/change-name',[AccountController::class,'change_name']);
 
 Auth::routes();
 
 Route::middleware([Authenticate::class])->middleware([AccountTypeIsValid::class])->get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('/backstage')->middleware([Authenticate::class])->middleware([AccountTypeIsValid::class])->group(function () {
+//後台登入
+Route::prefix('/backstage')->middleware(['auth','AccountTypeIsValid'])->group(function () {
     Route::get('/product-index',[ProductController::class,'index']);    //列表頁
     Route::get('/product-create',[ProductController::class,'create']);    //新增頁
     Route::post('/product-store',[ProductController::class,'store']);    //儲存
