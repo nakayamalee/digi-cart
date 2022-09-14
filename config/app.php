@@ -155,7 +155,7 @@ return [
     */
 
     'providers' => [
-
+        Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */

@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('uid');
-            $table->integer('pid');
-            $table->integer('qty');
-            $table->integer('status');
+            $table->integer('uid')->nullable()->commet('購物車擁有者');
+            $table->integer('pid')->nullable()->commet('購物車內的商品');
+            $table->integer('qty')->nullable()->commet('商品數量');
         });
     }
 

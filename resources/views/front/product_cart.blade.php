@@ -12,7 +12,7 @@
     <div class="conatiner-fulid px-0 pt-5 px-sm-5">
         <div class="row g-3 m-0 justify-content-evenly">
             <div class="card mb-3 col-12 p-0 p-sm-5">
-                @if(!$cart)
+                @if(!empty($cart))
                     <div class="text-center fs-1 fw-bolder text-danger">購物車無商品,請先至商品頁選購喔!</div>
                 @endif
                 <table class="table table-striped">
@@ -28,8 +28,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if($cart)
-                            @foreach ($cart->user_order as $key => $item)
+                        @if(empty($cart))
+                            @foreach ($cart->pid as $key => $item)
                                 <tr>
                                     <td scope="row"><input type="checkbox"></td>
                                     <td>{{$key+1}}</td>

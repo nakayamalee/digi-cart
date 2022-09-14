@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Models\Product;
 use App\Models\User_info;
 use App\Models\User_order;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -113,8 +114,11 @@ class Controller extends BaseController
     }
     public function add_cart(Request $request)
     {
-        // $cart = Cart::where('uid',Auth:id())->get();
+        $list = Cart::where('uid',Auth::id())->pid;
 
+        if(in_array($request->product_id,$list)){
+            
+        }
 
         // $cart = User_info::where('user_id',Auth::id())->where('isCart',1)->first();
 
@@ -146,8 +150,9 @@ class Controller extends BaseController
     public function cart_index()
     {
         // $cart = User_info::where('user_id',Auth::user()->id)->where('isCart',1)->with('user_order','user_order.product')->first();
+        $cart = Cart::where('uid',Auth::id())->get();
 
-        return view('front.product_cart');
+        return view('front.product_cart',compact('cart'));
     }
     public function customer_center()
     {
