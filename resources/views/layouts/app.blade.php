@@ -37,7 +37,7 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="/backstage/product-index">商品列表</a>
+                                <a class="nav-link" href="/backstage/">商品列表</a>
                             </li>
                         @endauth
                     </ul>

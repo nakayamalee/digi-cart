@@ -51,8 +51,9 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let table = new DataTable('#myTable');
-        });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     let table = new DataTable('#myTable');
+        // });
+        let table = new DataTable('#myTable');
     </script>
 @endsection

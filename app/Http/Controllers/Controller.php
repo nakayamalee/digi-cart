@@ -11,6 +11,7 @@ use App\Models\User_info;
 use App\Models\User_order;
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Auth;
 
 
@@ -50,102 +51,72 @@ class Controller extends BaseController
     }
     public function pay(Request $request)
     {
-        $token = rand(10000, 99999);
-        session(['form_token'=> $token]);
 
         $product = Product::find($request->product_id);
         if($request->prouduct_qty <=0 || $request->prouduct_qty > $product->product_qty){
             return 'error,please check again';
         }else{
             $qty = $request->prouduct_qty;
-            return view('front.pay',compact('product','qty','token'));
+            return view('front.pay',compact('product','qty'));
         }
     }
     public function paydone(Request $request){
-        $input_token = $request->token;
-        $token = session('form_token');
-        if($input_token == $token) {
-            session(['form_token'=> null]);
-        } else {
-            return '請勿重複提交!! <a href="/">回到首頁</a>';
+        $total = 0;
+        if(strlen(Carbon::now()->month) == 1){
+            $month = '0'.Carbon::now()->month;
+        }else{
+            $month = Carbon::now()->month;
         }
-        $subtotal = 0;
-        $product_arr = $request->id;
-        $products = Product::find($product_arr);
-        $user_info = User_info::create([
-            'user_id'=>Auth::user()->id,
+        if(strlen(Carbon::now()->day) == 1){
+            $day = '0'.Carbon::now()->day;
+        }else{
+            $day = Carbon::now()->day;
+        }
+        $order_id = 'DIGI'.Carbon::now()->year.$month.$day;
+        $uid = new User_info;
+        if(!($uid->exists())){
+            $next = '0001';
+        }else{
+            $now_id = $uid->max('id');
+            if(strlen($now_id+1) == 1){
+                $next = '000'.($now_id+1);
+            }else if(strlen($now_id+1) == 2){
+                $next = '00'.($now_id+1);
+            }else if(strlen($now_id+1) == 3){
+                $next = '0'.($now_id+1);
+            }else if(strlen($now_id+1) >= 4){
+                $next = $now_id+1;
+            }
+        };
+        foreach ($request->id as $key => $item) {
+            $product_price = Product::find($item);
+            if(!$product_price || $product_price<$request->qty[$key] || $request->qty[$key]<0){
+                return redirect('/pay')->with('errormessage','發生錯誤,訂單已取消!');
+            }
+            $total += $product_price->product_price*$request->qty[$key];
+        }
+
+        $user_infos = User_info::create([
+            'user_id' => Auth::id(),
             'user_address' => $request->postal_code.$request->city.$request->address,
-            'pay_type' => $request->pay_way,
             'delivery_type' => $request->delivery,
-            'isCart'=>0,
+            'pay_type' => $request->pay_way,
+            'order_subtotal' => $total,
+            'order_id' => $order_id.$next,
+            'status' => 0,
         ]);
 
-        foreach ($product_arr as $key => $value) {
-            $product = Product::find($value);
-            User_order::create([
-                'product_id'=>$value,
-                'product_price'=>$product->product_price,
-                'product_qty'=>$request->qty[$key],
-                'product_id'=>$value,
-                'user_info_id'=> $user_info->id,
-                'status'=>1,
-                'isCart'=>0,
+        foreach ($request->id as $key => $item) {
+            $product_price = Product::find($item)->product_price;
+            $user_order = User_order::create([
+                'product_id' => $item,
+                'product_price' => $product_price,
+                'product_qty' => $request->qty[$key],
+                'user_info_id' => $user_infos->id,
             ]);
-
-            $product->product_qty=$product->product_qty-$request->qty[$key];
-            $product->save();
-            $subtotal+=$product->product_price*$request->qty[$key];
-        }
-        if($request->delivery==1 || $request->delivery==3){
-            $subtotal = $subtotal + 60;
-        }else if($request->delivery==2){
-            $subtotal = $subtotal + 50;
-        }else if($request->delivery==4){
-            $subtotal = $subtotal + 45;
-        }else if($request->delivery==5){
-            $subtotal = $subtotal + 90;
         }
 
-        $user_info->order_subtotal = $subtotal;
-        $user_info->save();
-
-
-        return view('front.pay-done',compact('products','request','user_info'));
-    }
-    public function add_cart(Request $request)
-    {
-        $list = Cart::where('uid',Auth::id())->pid;
-
-        if(in_array($request->product_id,$list)){
-            
-        }
-
-        // $cart = User_info::where('user_id',Auth::id())->where('isCart',1)->first();
-
-        // if(!isset($cart)){
-        //     $product_id = $request->product_id;
-        //     $product_qty = $request->product_qty;
-        //     $product = Product::find($product_id);
-
-        //     if($product->product_qty <=0 || $product_qty > $product->product_qty){
-        //         return 'number error';
-        //     }else{
-        //         $user_info = User_info::create([
-        //             'user_id'=>Auth::user()->id,
-        //             'isCart'=>1,
-        //         ]);
-        //         User_order::create([
-        //             'product_id'=>$product_id,
-        //             'product_price'=>$product->product_price,
-        //             'product_qty'=>$product_qty,
-        //             'user_info_id'=> $user_info->id,
-        //             'status'=>0,
-        //             'isCart'=>1,
-        //         ]);
-        //     }
-        // }else{
-        //     return 'already in cart';
-        // }
+        return view('front.pay_done',compact('request','user_infos'));
     }
     public function cart_index()
     {

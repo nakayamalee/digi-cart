@@ -35,7 +35,7 @@
                         <input id="product_price" name="product_price" type="number" min="0" value="{{$products->product_price}}" required>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-secondary" onclick="location.href='/backstage/product-index'">取消</button>
+                        <button type="button" class="btn btn-secondary" onclick="location.href='/backstage'">取消</button>
                         <button type="submit" class="btn btn-success">更新商品</button>
                     </div>
                 </form>

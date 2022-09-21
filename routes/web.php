@@ -64,7 +64,7 @@ Route::middleware([Authenticate::class])->middleware([AccountTypeIsValid::class]
 
 //後台登入
 Route::prefix('/backstage')->middleware(['auth','AccountTypeIsValid'])->group(function () {
-    Route::get('/product-index',[ProductController::class,'index']);    //列表頁
+    Route::get('/',[ProductController::class,'index']);    //列表頁
     Route::get('/product-create',[ProductController::class,'create']);    //新增頁
     Route::post('/product-store',[ProductController::class,'store']);    //儲存
     Route::get('/product-edit/{id}',[ProductController::class,'edit']);    //編輯

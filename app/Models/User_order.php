@@ -10,7 +10,7 @@ class User_order extends Model
     use HasFactory;
     protected $table = 'user_orders';
     protected $primaryKey = 'id';
-    protected $fillable = ['created_at', 'updated_at','product_id','product_price','product_qty','user_id','order_subtotal','isCart','user_info_id','status'];
+    protected $fillable = ['created_at', 'updated_at','product_id','product_price','product_qty','user_id','order_subtotal','isCart','user_info_id'];
 
     public function product()
     {

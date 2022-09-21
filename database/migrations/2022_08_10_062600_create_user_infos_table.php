@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('pay_type')->nullable()->comment('寄送地址');
             $table->string('order_subtotal')->nullable()->comment('訂單總額');
             $table->string('order_id')->nullable()->comment('訂單編號');
+            $table->integer('status')->nullable()->comment('訂單狀態');
         });
     }
 

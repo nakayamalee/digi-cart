@@ -24,7 +24,7 @@
                         <input id="product_price" name="product_price" type="number" min="0" required>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-secondary" onclick="location.href='/backstage/product-index'">取消</button>
+                        <button type="button" class="btn btn-secondary" onclick="location.href='/backstage'">取消</button>
                         <button type="submit" class="btn btn-success">新增商品</button>
                     </div>
                 </form>

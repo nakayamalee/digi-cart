@@ -27,7 +27,7 @@ class ProductController extends Controller
             'product_price' => $request->product_price,
             'img_path' => $path,
         ]);
-        return redirect('/backstage/product-index');
+        return redirect('/backstage');
     }
     public function edit($id)
     {
@@ -51,13 +51,13 @@ class ProductController extends Controller
         $products->product_price = $request->product_price;
         $products->save();
 
-        return redirect('/backstage/product-index');
+        return redirect('/backstage');
     }
     public function destroy($id)
     {
         $products = Product::find($id);
         FilesController::deleteUpload($products->img_path);
         $products->delete();
-        return redirect('/backstage/product-index');
+        return redirect('/backstage');
     }
 }
