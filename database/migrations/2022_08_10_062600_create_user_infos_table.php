@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('user_id')->nullable()->commet('訂單擁有者');
             $table->string('user_address')->nullable()->comment('寄送地址');
             $table->integer('delivery_type')->nullable()->comment('運送方式');
+            $table->integer('delivery_bill')->nullable()->comment('運送費用');
             $table->integer('pay_type')->nullable()->comment('寄送地址');
             $table->string('order_subtotal')->nullable()->comment('訂單總額');
             $table->string('order_id')->nullable()->comment('訂單編號');

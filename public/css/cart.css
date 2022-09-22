@@ -1,12 +1,14 @@
 main .card {
-  overflow: scroll;
+  overflow-y: scroll;
   max-height: 70vh;
+  min-height: 600px;
 }
 main .card table tbody th {
   vertical-align: middle;
 }
 main .card table tbody td {
   vertical-align: middle;
+  user-select: none;
 }
 main .card table tbody td img {
   width: 100%;
@@ -19,3 +21,20 @@ main .card table tbody td img {
   -o-object-position: center;
      object-position: center;
 }/*# sourceMappingURL=cart.css.map */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  width: 100px;
+}
+
+.change_qty{
+    min-width: 250px;
+}

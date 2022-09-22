@@ -27,16 +27,16 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($products as $key => $item)
+                @foreach ($user_infos->user_order as $key => $item)
                     <tr>
                         <td>{{ $key + 1 }}</td>
-                        <td><a href="/product-intro/{{ $item->id }}"><img src="{{ $item->img_path }}"
-                                    title="{{ $item->product_name }}" alt="{{ $item->product_name }}"></a></td>
-                        <td>${{ $item->product_price }}</td>
-                        <td>{{ $request->qty[$key] }}</td>
-                        <td class="text-primary">${{ $item->product_price * $request->qty[$key] }}</td>
+                        <td><a href="/product-intro/{{ $item->product->id }}"><img src="{{ $item->product->img_path }}"
+                                    title="{{ $item->product->product_name }}" alt="{{ $item->product->product_name }}"></a></td>
+                        <td>${{ $item->product->product_price }}</td>
+                        <td>{{ $item->product_qty }}</td>
+                        <td class="text-primary">${{ $item->product_price * $item->product_qty }}</td>
                     </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
         </table>
         <div id="delivery-info" class="py-3 px-5 mb-3">
@@ -54,11 +54,11 @@
                     付款方式
                 </div>
                 <div>
-                    @if ($request->pay_way == 1)
+                    @if ($user_infos->pay_type == 1)
                         貨到付款
-                    @elseif ($request->pay_way == 2)
+                    @elseif ($user_infos->pay_type == 2)
                         信用卡/金融卡
-                    @elseif ($request->pay_way == 3)
+                    @elseif ($user_infos->pay_type == 3)
                         銀行轉帳
                     @endif
                 </div>
@@ -69,21 +69,21 @@
                 </div>
                 <div class="text-end">
                     <div>
-                        @if ($request->delivery == 1)
+                        @if ($user_infos->delivery_type == 1)
                             7-ELEVEN
-                        @elseif ($request->delivery == 2)
+                        @elseif ($user_infos->delivery_type == 2)
                             萊爾富
-                        @elseif ($request->delivery == 3)
+                        @elseif ($user_infos->delivery_type == 3)
                             全家
-                        @elseif ($request->delivery == 4)
+                        @elseif ($user_infos->delivery_type == 4)
                             OK Mart
-                        @elseif ($request->delivery == 5)
+                        @elseif ($user_infos->delivery_type == 5)
                             宅配
                         @endif
                     </div>
                     {{-- <div>{{ Auth::user()->phone }}</div> --}}
                     <div class="d-flex flex-wrap justify-content-end">
-                        <span>{{ $request->postal_code }} {{ $request->city }}</span><span>{{ $request->address }}</span>
+                        <span>{{ $user_infos->user_address }}</span>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                     商品總金額
                 </div>
                 <div>
-                    ${{$user_infos->order_subtotal}}
+                    ${{ $user_infos->order_subtotal }}
                 </div>
             </div>
             <div class="d-flex justify-content-between info mb-3">
@@ -100,17 +100,7 @@
                     運費總金額
                 </div>
                 <div>
-                    @if ($request->delivery == 1)
-                        $60
-                    @elseif ($request->delivery == 2)
-                        $50
-                    @elseif ($request->delivery == 3)
-                        $60
-                    @elseif ($request->delivery == 4)
-                        $45
-                    @elseif ($request->delivery == 5)
-                        $90
-                    @endif
+                    {{ $user_infos->delivery_bill }}
                 </div>
             </div>
             <div class="d-flex justify-content-between info mb-3">
@@ -118,17 +108,7 @@
                     訂單總計
                 </div>
                 <div class="text-danger fs-1 fw-bolder">
-                    @if ($request->delivery == 1)
-                        ${{$user_infos->order_subtotal+60}}
-                    @elseif ($request->delivery == 2)
-                        ${{$user_infos->order_subtotal+50}}
-                    @elseif ($request->delivery == 3)
-                        ${{$user_infos->order_subtotal+60}}
-                    @elseif ($request->delivery == 4)
-                        ${{$user_infos->order_subtotal+45}}
-                    @elseif ($request->delivery == 5)
-                        ${{$user_infos->order_subtotal+90}}
-                    @endif
+                    ${{ $user_infos->order_subtotal+$user_infos->delivery_bill }}
                 </div>
             </div>
             <div class="text-end">

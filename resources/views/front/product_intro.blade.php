@@ -32,7 +32,7 @@
                         <div class="card-body h-100 d-flex flex-column justify-content-evenly">
                             <form action="/pay" method="GET">
                                 <h5 class="card-title">商品名稱 : {{ $product->product_name }}</h5>
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="product_id[]" value="{{ $product->id }}">
                                 <p class="card-text">單價 : {{ $product->product_price }}元</p>
                                 {{-- <input type="hidden" name="product_price" value="{{ $product->product_price }}"> --}}
                                 <p class="card-text">庫存 : {{ $product->product_qty }}件</p>
@@ -48,14 +48,14 @@
                                         <span id="minus" class="fs-4 border px-3 py-1">-</span>
                                         {{-- <span id="qty">1</span> --}}
                                         <input id="prouduct_qty" class="fs-4 text-center" type="number" min="1"
-                                            max="{{ $product->product_qty }}" value="1" name="prouduct_qty" onblur="checkQty()">
+                                            max="{{ $product->product_qty }}" value="1" name="prouduct_qty[]" onblur="checkQty()">
                                         <span id="pluse" class="fs-4 border px-3 py-1">+</span>
                                     </p>
                                     <div class="d-flex justify-content-center">
                                         <button type="button" id="add_to_cart" onclick="cart()"
                                             data-id="{{ $product->id }}"
                                             class="btn card-btn text-white me-5">加入購物車</button>
-                                        <button type="submit" class="btn card-btn text-white">直接購買</button>
+                                        <button  type="submit" class="btn card-btn text-white">直接購買</button>
                                     </div>
                                 @endif
                             </form>
@@ -105,19 +105,23 @@
             }).then(function(response) {
                 return response.text(); //接收資料
             }).then(function(data) {
-                if (data === 'number error') {
+                if (data === 'add into cart') {
                     Swal.fire({
-                        icon: 'error',
-                        title: '加入失敗!!',
-                        text: '請確認數量',
-                    })
+                        position: 'top-end',
+                        icon: 'success',
+                        title: '成功加入購物車',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
-                if (data === 'already in cart') {
+                if (data === 'edit cart') {
                     Swal.fire({
-                        icon: 'error',
-                        title: '加入失敗!!',
-                        text: '此商品已加入購物車',
-                    })
+                        position: 'top-end',
+                        icon: 'success',
+                        title: '成功更新購物車',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
             })
         }

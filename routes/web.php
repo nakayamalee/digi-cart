@@ -39,13 +39,14 @@ Route::get('/signin', function () {
     return view('front.login');
 })->name('signin');
 
-Route::post('/paydone',[Controller::class,'paydone']);
 
 Route::post('/add_cart',[Controller::class,'add_cart']);
 
-Route::get('/pay', [Controller::class,'pay']);
+Route::middleware(['auth'])->get('/pay', [Controller::class,'pay']);
 
 Route::middleware(['auth'])->get('/cart-index', [Controller::class,'cart_index']);
+Route::middleware(['auth'])->post('/create_order',[Controller::class,'create_order']);
+Route::middleware(['auth'])->get('/paydone/{order_id}',[Controller::class,'pay_done']);
 
 // Route::middleware(['auth'])->get('/customer-center', function () {
 //     return view('front.product_customer_center');

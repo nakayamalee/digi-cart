@@ -50,9 +50,13 @@
                                 <tr>
                                     <th scope="row">{{ $key+1 }}</th>
                                     <td>{{ $item->created_at->toDateString() }}</td>
-                                    <td>HES123456789</td>
-                                    <td>NT$600</td>
-                                    <td class="text-primary">配送中</td>
+                                    <td>{{ $item->order_id }}</td>
+                                    <td>NT${{ $item->order_subtotal + $item->delivery_bill }}</td>
+                                    <td class="text-primary">
+                                        @if ($item->status == 0)
+                                            配送中
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         @endif

@@ -27,4 +27,9 @@ class Cart extends Model
      * @var array
      */
     protected $fillable = ['created_at', 'updated_at', 'uid', 'pid', 'qty'];
+
+    public function product()
+    {
+        return $this->hasOne(Product::class,'id','pid');
+    }
 }

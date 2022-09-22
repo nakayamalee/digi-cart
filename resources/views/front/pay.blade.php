@@ -10,7 +10,7 @@
 
 @section('main')
     <div class="container pt-5">
-        <form action="/paydone" method="POST">
+        <form action="/create_order" method="POST">
             @csrf
             <table class="table table-striped border">
                 <thead>
@@ -23,16 +23,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="/product-intro/{{ $product->id }}"><img src="{{ $product->img_path }}"
-                                    title="{{ $product->product_name }}" alt="{{ $product->product_name }}"></a></td>
-                        <td>${{ $product->product_price }}</td>
-                        <td>{{ $qty }}</td>
-                        <td class="text-primary" id="sub_price">${{ $product->product_price * $qty }}</td>
-                        <input type="hidden" name="id[]" value="{{ $product->id }}">
-                        <input type="hidden" name="qty[]" value="{{ $qty }}">
-                    </tr>
+                    @foreach ($products as $key => $item)
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td><a href="/product-intro/{{ $item->id }}"><img src="{{ $item->img_path }}"
+                                        title="{{ $item->product_name }}" alt="{{ $item->product_name }}"></a></td>
+                            <td>${{ $item->product_price }}</td>
+                            <td>{{ $qty[$key] }}</td>
+                            <td class="text-primary" id="sub_price">${{ $item->product_price * $qty[$key] }}</td>
+                            <input type="hidden" name="id[]" value="{{ $item->id }}">
+                            <input type="hidden" name="qty[]" value="{{ $qty[$key] }}">
+                        </tr>
+                        @endforeach
                 </tbody>
             </table>
 
@@ -124,7 +126,7 @@
                     <span class="me-3">寄送資訊:</span>
                     <div>
                         <div id="way">7-ELEVEN</div>
-                        <div id="tel">{{ Auth::user()->phone }}</div>
+                        <div id="tel">{{ Auth::user()->phone}}</div>
                         <div id="address"><span id="postal_code">郵遞區號,</span><span id="city">縣市,</span><span
                                 id="address_info">詳細地址</span></div>
                     </div>
@@ -141,11 +143,11 @@
             </div>
             <div class="p-5 text-end d-flex justify-content-end">
                 <div class="col-12 col-sm-9 col-lg-4">
-                    <h3 class="d-flex justify-content-between">商品總金額: <span>${{ $product->product_price * $qty }}</span>
+                    <h3 class="d-flex justify-content-between">商品總金額: <span>{{ $total }}</span>
                     </h3>
                     <h3 class="d-flex justify-content-between">運費總金額: <span id="delivery_price">$60</span></h3>
                     <h3 class="d-flex justify-content-between">總付款金額: <span>$<span
-                                id="subtotal">{{ $product->product_price * $qty + 60 }}</span></span> </h3>
+                                id="subtotal">{{$total+60}}</span></span> </h3>
                     <button type="submit" class="btn btn-danger">下訂單</button>
                 </div>
             </div>
